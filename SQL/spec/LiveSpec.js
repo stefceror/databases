@@ -11,14 +11,14 @@ describe("Persistent Node Chat Server", function() {
   beforeEach(function(done) {
     dbConnection = mysql.createConnection({
       // TODO: Fill this out with your mysql username
-      user: "",
+      user: "chatterbox",
       // and password.
-      password: "",
+      password: "chatterbox1",
       database: "chat"
     });
     dbConnection.connect();
 
-    var tablename = ""; // TODO: fill this out
+    var tablename = "messages"; // TODO: fill this out
 
     /* Empty the db table before each test so that multiple tests
      * (or repeated runs of the tests) won't screw each other up: */
@@ -41,13 +41,13 @@ describe("Persistent Node Chat Server", function() {
               /* Now if we look in the database, we should find the
                * posted message there. */
 
-              var queryString = "";
-              var queryArgs = [];
+              var queryString = "SELECT messageText FROM messages";
+              var queryArgs = ['messageText'];
               /* TODO: Change the above queryString & queryArgs to match your schema design
                * The exact query string and query args to use
                * here depend on the schema you design, so I'll leave
                * them up to you. */
-              dbConnection.query( queryString, queryArgs,
+              dbConnection.query( queryString,
                 function(err, results) {
                   // Should have one result:
                   expect(results.length).to.equal(1);

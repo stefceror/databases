@@ -15,12 +15,15 @@ exports.postMessage = function(req, res) {
   var resultsCallback = function (results) {
       var chat = {
         message: message.message,
-        userid: results[0].id,
+        userid: results[0].ID,
         roomname: message.roomname
       };
 
-      saveMessage(chat.message, chat.userid, chat.roomname, function () {
-        serverHelpers.sendResponse(res, message);
+      saveMessage(chat.message, chat.userid, chat.roomname, function (err, results) {
+        if(err){
+          throw err;
+        }
+        serverHelpers.sendResponse(res, results);
       });
   };
 
